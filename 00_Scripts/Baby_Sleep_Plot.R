@@ -11,7 +11,7 @@ source('00_Scripts/Hour_Decimal_to_Time_String.R')
 source('00_Scripts/Month_from_Day.R')
 
 Baby_Sleep_Plot <- function(data,
-                        sleep_color = '#A9A9A9',
+                        sleep_color = '#838383',
                         wake_color= '#FFFBE9',
                         x_tick_interval = 2) {
   

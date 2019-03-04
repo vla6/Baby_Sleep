@@ -32,6 +32,7 @@ source('00_Scripts/Interval_from_Std_Long2.R')
 source('00_Scripts/Baby_Name_From_File.R')
 source("00_Scripts/Baby_Sleep_Plot.R")
 source("00_Scripts/Name_to_RGB_Color.R")
+source('00_Scripts/Factorize_Baby_Name.R')
 
 #
 # Consolidate data ----
@@ -54,9 +55,12 @@ for (fn in infile_list) {
     bind_rows(this_std_long)
 }
 
-# Save the combined data
-saveRDS(std_long, file=paste0(kDataDir, '/',
-                              kStdFilename))
+# Save the combined data, factorizing the name
+std_long <- std_long %>%
+  mutate(baby_name = Factorize_Baby_Name(baby_name)) %>%
+  arrange(baby_name, startTime)
+std_long %>%
+  saveRDS(file=paste0(kDataDir, '/', kStdFilename))
 
 #
 # Create additional formats ----
@@ -95,6 +99,8 @@ std_long %>%
 std_long_2 %>%
   group_by(baby_name) %>%
   summarize(sum(duration))
+
+# Intervals should be close but may differ slightly.
 
 interval_15 %>%
   group_by(baby_name) %>%

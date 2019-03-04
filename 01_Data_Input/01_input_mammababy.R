@@ -13,7 +13,7 @@
 # Will attempt to convert .csv files with a prefix of 
 # "RAWDATA_MAMMABABY_" found in the data directory.
 # For successful import, the filename must be of the format
-#    RAWDATA_MAMMABABY_<id string>_<dob>.csv
+#    RAWDATA_MAMMABABY_<id_str>_<dob>.csv
 # For example, RAWDATA_MAMMABABY_Jane_20151122.csv
 # Dates have been masked (shifted) in included data.
 #

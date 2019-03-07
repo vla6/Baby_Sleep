@@ -41,8 +41,11 @@ Interval_from_Std_Long2 <- function(data, interval_mins = 15,
     ungroup() %>%
     left_join(init_days, by = 'baby_name') %>%
     
-    mutate(day = as.integer(round(difftime(interval_start, init_day, tz='GMT',
-                                           units='days')))) %>%
+    mutate(day = as.integer(round(difftime(floor_date(interval_start, 'day'), 
+                                           init_day, tz='GMT',
+                                           units='days'))),
+           interval = case_when(interval == 1440 ~ 0,
+                                TRUE ~ interval)) %>%
     dplyr::select(baby_name, day, interval, interval_start, sleep_flag)
   
   return(timeseries)

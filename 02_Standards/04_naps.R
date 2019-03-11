@@ -59,7 +59,7 @@ complete_week_df <- std_long_2 %>%
     dplyr::filter(tot_days == 7) %>%
     dplyr::select(baby_name, week)
   
-# Combine data sets and limit to daytime hours
+# Limit sleep intervals to daytime hours
 baby_week_bound_df <- std_long_2 %>%
   semi_join(complete_week_df, by=c('baby_name', 'week')) %>%
   left_join(wake_sleep_bound, by=c('baby_name', 'day')) %>% 
@@ -74,9 +74,9 @@ baby_week_bound_df <- std_long_2 %>%
   mutate(startTime = pmax(day_start, startTime),
          endTime = pmin(day_end, endTime),
          duration = as.integer(difftime(endTime, startTime, tz='GMT',
-                                        units='mins'))) 
+                                        units='mins'))) %>%
+  dplyr::filter(startTime < endTime)
   
-
 # Get day sleep naps, removing any that touch the boundaries
 daily_sleep_collapsed_filt <- baby_week_bound_df %>%
   dplyr::filter(startTime > day_start &
@@ -278,12 +278,12 @@ ggsave(paste0(kFerberImg, '/Nap_Week_Duration_All.png'),
 #
 
 # Get wake times *overlapping* day'night boundaries
+# Save for later use in autocorrelation
 
-std_filt_overlap <- baby_week_bound_df  %>% 
-  filter(pmax(day_start, startTime) < pmin(day_end, endTime))
-
-day_sleep_overlap <- std_filt_overlap %>%
+day_sleep_overlap <- baby_week_bound_df  %>% 
   dplyr::select(startTime, day, duration, baby_name)
+
+saveRDS(day_sleep_overlap, paste0(kFerberData, '/Std_Long2_Day_Only.rds'))
 
 # Collapse short wakes
 
@@ -325,7 +325,6 @@ wake_int_week <-  wake_int_1 %>%
                    tot_wakes = n(),
                    month = mean(month)) %>%
   ungroup() 
-
 
 
 # Plot all baby weekly averages

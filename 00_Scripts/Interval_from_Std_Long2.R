@@ -3,6 +3,7 @@
 # data.  The output data set has an indicator field
 # which is 1 for sleep, 0 for wake
 #
+require(tidyr)
 
 Interval_from_Std_Long2 <- function(data, interval_mins = 15,
                                              thresh_pct = 0.5) {

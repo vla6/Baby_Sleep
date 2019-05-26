@@ -16,6 +16,7 @@ library(tools)
 library(data.table)
 library(lubridate)
 library(dplyr)
+library(tidyr)
 library(ggplot2)
 
 kDataDir <- "00_Data/"
@@ -118,6 +119,8 @@ interval_05 %>%
 baby_list <- interval_15 %>% pull(baby_name) %>% unique()
 
 for (baby in baby_list) {
+  
+  print(baby)
   sleep_color = Name_to_RGB_Color(baby)
   
   this_data <- interval_15 %>%

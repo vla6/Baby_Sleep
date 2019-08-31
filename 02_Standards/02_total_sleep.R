@@ -218,7 +218,7 @@ plot_all <- smoothed_data %>%
   labs(y='Total Sleep (hours)', x='Month',
        title='Total Sleep - Weekly Averages',
        color='') +
-  scale_y_continuous(limits=c(8,18),
+  scale_y_continuous(limits=c(8,17),
                      breaks=seq(8,18,1)) +
   scale_x_continuous(limits=c(0,max_x), expand=expand_scale(0)) +
   theme_bd
@@ -226,7 +226,8 @@ plot_all <- smoothed_data %>%
 print(plot_all)
 
 ggsave(filename='Total_Sleep_Weekly_all.png',
-       device="png",path=kFerberImg, plot=plot_all)
+       device="png",path=kFerberImg, plot=plot_all,
+       width=10, height=6)
 
 #
 # Plot std dev w ranges ----

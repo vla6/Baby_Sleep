@@ -1,4 +1,4 @@
-# Infant sleep tracking and analytics
+# Baby Sleep
 
 Valerie Carey 2019
 

@@ -1,5 +1,5 @@
-# Baby_Sleep
-Baby Sleep 
+# Infant sleep tracking and analytics
+
 Valerie Carey 2019
 
 A personal data project to compare baby sleep recorded by parents to expert standards.  Written in R, and presented at the ROC data science meetup 28 Feb 2019.
